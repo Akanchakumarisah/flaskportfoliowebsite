@@ -2,27 +2,35 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 import os
 import json
 from datetime import datetime
-from pathlib import Path
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
 app = Flask(__name__)
-app.secret_key = 'your_secret_key_here'  # Change this to a random secret key
+app.secret_key = 'your_secret_key_here'  # Replace with a random secure secret key
 
-# Configure Google Sheets
-scope = ["https://spreadsheets.google.com/feeds", 
-         "https://www.googleapis.com/auth/drive"]
-creds = ServiceAccountCredentials.from_json_keyfile_name("credentials.json", scope)
-client = gspread.authorize(creds)
+# ✅ Configure Google Sheets using environment variables (for Render deployment)
+scope = [
+    "https://spreadsheets.google.com/feeds",
+    "https://www.googleapis.com/auth/drive"
+]
 
-# Open the Google Sheet (replace with your sheet name)
-try:
-    sheet = client.open("sheet").sheet1
-except Exception as e:
-    print(f"Error connecting to Google Sheet: {str(e)}")
+credentials_json = os.environ.get("GOOGLE_CREDENTIALS")
+
+if credentials_json:
+    creds_dict = json.loads(credentials_json)
+    creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scope)
+    client = gspread.authorize(creds)
+    try:
+        sheet = client.open("sheet").sheet1  # Replace "sheet" with your Google Sheet name
+    except Exception as e:
+        print(f"Error connecting to Google Sheet: {str(e)}")
+        sheet = None
+else:
+    print("GOOGLE_CREDENTIALS environment variable not found.")
+    client = None
     sheet = None
 
-# Projects data
+# ✅ Projects data
 projects = [
     {
         "id": 1,
@@ -32,7 +40,7 @@ projects = [
         "technologies": ["Tableau Prep", "Tableau Desktop", "Data Visualization", "Data Manipulation"],
         "categories": ["data"],
         "github_url": "https://github.com/Akanchakumarisah/Amazon-Sales-Analysis",
-        "live_url":"https://github.com/Akanchakumarisah/Amazon-Sales-Analysis/blob/main/Screenshot%202024-11-17%20143614.png"
+        "live_url": "https://github.com/Akanchakumarisah/Amazon-Sales-Analysis/blob/main/Screenshot%202024-11-17%20143614.png"
     },
     {
         "id": 2,
@@ -52,21 +60,21 @@ projects = [
         "technologies": ["Power BI", "Data Analysis", "Data Visualization"],
         "categories": ["data"],
         "github_url": "https://github.com/Akanchakumarisah/Bike-Sales-Dashboard",
-        "live_url":"https://github.com/Akanchakumarisah/Bike-Sales-Dashboard/blob/main/Bike%20Sales%20Dashboard.png"
+        "live_url": "https://github.com/Akanchakumarisah/Bike-Sales-Dashboard/blob/main/Bike%20Sales%20Dashboard.png"
     },
     {
-    "id": 4,
-    "title": "Portfolio Website",
-    "description": "Developed a responsive personal portfolio website to showcase my projects and skills. Built with modern web technologies to demonstrate front-end development capabilities.",
-    "image": "portfolio.png",
-    "technologies": ["HTML5", "CSS3", "JavaScript"],
-    "categories": ["web"],
-    "github_url":"https://github.com/Akanchakumarisah/PortfolioWebsiteAkancha",
-    "live_url": "https://akanchakumarisah.github.io/PortfolioWebsiteAkancha/"
-}
+        "id": 4,
+        "title": "Portfolio Website",
+        "description": "Developed a responsive personal portfolio website to showcase my projects and skills. Built with modern web technologies to demonstrate front-end development capabilities.",
+        "image": "portfolio.png",
+        "technologies": ["HTML5", "CSS3", "JavaScript"],
+        "categories": ["web"],
+        "github_url": "https://github.com/Akanchakumarisah/PortfolioWebsiteAkancha",
+        "live_url": "https://akanchakumarisah.github.io/PortfolioWebsiteAkancha/"
+    }
 ]
 
-# Skills and education data
+# ✅ Skills data
 skills = {
     'languages': [
         {'name': 'Python', 'icon': 'fa-brands fa-python'},
@@ -97,6 +105,7 @@ skills = {
     ]
 }
 
+# ✅ Education data
 education = [
     {
         'degree': 'Bachelor of Computer Science And Engineering',
@@ -112,6 +121,7 @@ education = [
     }
 ]
 
+# ✅ Routes
 @app.route('/')
 def home():
     return render_template('index.html', projects=projects)
@@ -126,8 +136,7 @@ def projects_page():
 
 @app.route('/experience')
 def experience():
-    # If you have experience data, add it here
-    experiences = []  # Placeholder - add your experience data
+    experiences = []  # Add your experience data here if available
     return render_template('experience.html', experiences=experiences)
 
 @app.route('/contact', methods=['GET', 'POST'])
@@ -140,18 +149,18 @@ def contact():
             'message': request.form.get('message'),
             'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         }
-        
+
         print(f"New contact form submission: {data}")
-        
-        # Save to local file
+
+        # ✅ Save to local file
         try:
             os.makedirs('data', exist_ok=True)
             with open('data/contact_submissions.txt', 'a', encoding='utf-8') as f:
                 f.write(f"{data}\n")
         except IOError as e:
             print(f"Error writing contact submission to file: {str(e)}")
-        
-        # Save to Google Sheets
+
+        # ✅ Save to Google Sheets
         if sheet:
             try:
                 row = [data['name'], data['email'], data['subject'], data['message'], data['timestamp']]
@@ -162,12 +171,12 @@ def contact():
                 flash('Your message was saved locally but failed to save to Google Sheets.', 'warning')
         else:
             flash('Your message was saved locally but Google Sheets connection is not available.', 'warning')
-        
+
         return redirect(url_for('contact'))
-    
+
     return render_template('contact.html')
 
+# ✅ Run the app
 if __name__ == '__main__':
-    # Create data directory if it doesn't exist
     os.makedirs('data', exist_ok=True)
     app.run(debug=True)
