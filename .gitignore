@@ -1,0 +1,28 @@
+# Create .gitignore with these contents
+echo "venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+.env
+*.sqlite3
+*.db
+instance/
+.DS_Store
+*.log
+credentials.json
+node_modules/
+static/images/
+data/
+*.pot
+*.py[co]
+*.swp
+*.bak
+*.egg-info/
+*.egg
+dist/
+build/
+.cache/
+*.mo" > .gitignore

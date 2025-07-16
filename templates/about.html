@@ -1,0 +1,170 @@
+{% extends "base.html" %}
+
+{% block title %}About Me{% endblock %}
+
+{% block content %}
+<!-- About Section -->
+<section class="py-16 bg-white">
+    <div class="max-w-6xl mx-auto px-4">
+        <div class="flex flex-col md:flex-row items-center">
+            <div class="md:w-1/3 mb-10 md:mb-0 flex justify-center">
+                <div class="w-64 h-64 rounded-full overflow-hidden border-4 border-primary shadow-lg">
+                    <img src="{{ url_for('static', filename='images/profile.jpg') }}" alt="Profile Picture" class="w-full h-full object-cover">
+                </div>
+            </div>
+            <div class="md:w-2/3 md:pl-12">
+                <h1 class="text-3xl font-bold mb-6">About Me</h1>
+                <p class="text-lg text-gray-700 mb-6">
+                    I’m a passionate Full Stack Web Developer and Data Analyst with expertise in building web applications and deriving insights from data using modern technologies. 
+                    With a strong foundation in computer science and hands-on experience in both frontend and backend development, 
+                    as well as data analysis and visualization, I create efficient, scalable, and user-friendly solutions that drive informed decision-making and impactful digital experiences.
+                </p>
+                <p class="text-lg text-gray-700 mb-8">
+                    My approach combines technical excellence with creative problem-solving. I'm committed to writing clean, 
+                    maintainable code and staying updated with industry trends. When I'm not coding, you can find me contributing 
+                    to open-source projects, writing technical blogs, or exploring new technologies.
+                </p>
+                <div class="flex space-x-4">
+                    <a href="/static/images/Resume.pdf" download class="bg-primary text-white px-6 py-3 rounded-lg font-medium hover:bg-secondary transition duration-300">Download CV</a>
+                    <a href="/contact" class="border-2 border-primary text-primary px-6 py-3 rounded-lg font-medium hover:bg-primary hover:text-white transition duration-300">Contact Me</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Skills Section -->
+<section class="py-16 bg-gray-50">
+    <div class="max-w-6xl mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-12">My Skills</h2>
+        
+        <!-- Font Awesome CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        
+        {% for category, items in skills.items() %}
+        <div class="mb-12">
+            <h3 class="text-xl font-semibold mb-4 text-primary">{{ category.replace('_', ' ').title() }}</h3>
+            <div class="flex flex-wrap gap-3">
+                {% for item in items %}
+                <span class="flex items-center bg-primary bg-opacity-10 text-primary px-4 py-2 rounded-full">
+                    <i class="{{ item.icon }} mr-2"></i>
+                    {{ item.name }}
+                </span>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+<!-- Education Section -->
+<section class="py-16 bg-white">
+    <div class="max-w-6xl mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-12">Education</h2>
+        
+        <div class="space-y-8">
+            {% for edu in education %}
+            <div class="bg-light p-6 rounded-lg shadow-md">
+                <div class="flex flex-col md:flex-row md:justify-between md:items-center">
+                    <div class="mb-4 md:mb-0">
+                        <h3 class="text-xl font-semibold text-primary">{{ edu.degree }}</h3>
+                        <p class="text-gray-600">{{ edu.institution }}</p>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="bg-primary text-white px-3 py-1 rounded-full text-sm">{{ edu.year }}</span>
+                        <span class="ml-4 bg-secondary text-white px-3 py-1 rounded-full text-sm">GPA: {{ edu.gpa }}</span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+<!-- Certifications Section -->
+<section class="py-16 bg-gray-50">
+    <div class="max-w-6xl mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-12">Certifications</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- NPTEL Certification -->
+            <a href="https://drive.google.com/file/d/1k6vnD6ihEc_tj8_PQOl7xrIX7L5HzM_V/view?usp=sharing" target="_blank" class="block hover:no-underline">
+                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300 h-full">
+                    <div class="flex items-center mb-4">
+                        <div class="w-16 h-16 rounded-full bg-white flex items-center justify-center mr-4 p-2 border border-gray-200">
+                            <i class="fas fa-cloud text-3xl text-blue-600"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-gray-800">Cloud Computing</h3>
+                            <p class="text-gray-600 text-sm">NPTEL</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700">Gained foundational knowledge and practical understanding of cloud computing concepts, architecture, and service models</p>
+                    <div class="mt-3 text-sm text-primary flex items-center">
+                        <span>View Certificate</span>
+                        <i class="fas fa-external-link-alt ml-1 text-xs"></i>
+                    </div>
+                </div>
+            </a>
+            
+  <!-- Coursera C++ Certification with Font Awesome Icon -->
+<a href="https://www.coursera.org/account/accomplishments/specialization/7M56NV6UW494" target="_blank" class="block hover:no-underline">
+    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300 h-full">
+        <div class="flex items-center mb-4">
+            <div class="w-16 h-16 rounded-full bg-white flex items-center justify-center mr-4 p-2 border border-gray-200">
+                <i class="fab fa-coursera text-4xl text-[#0056d2]"></i>
+            </div>
+            <div>
+                <h3 class="font-semibold text-gray-800">Programming in C++: A Hands-on Introduction</h3>
+                <p class="text-gray-600 text-sm">Coursera</p>
+            </div>
+        </div>
+        <p class="text-gray-700">Acquired practical skills in C++ programming, covering core concepts, syntax, and problem-solving techniques.</p>
+        <div class="mt-3 text-sm text-primary flex items-center">
+            <span>View Certificate</span>
+            <i class="fas fa-external-link-alt ml-1 text-xs"></i>
+        </div>
+    </div>
+</a>
+            
+            <!-- Coursera Data Analysis with Tableau Certification -->
+<a href="https://www.coursera.org/account/accomplishments/verify/UPN0W16DEHQC" target="_blank" class="block hover:no-underline">
+    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300 h-full">
+        <div class="flex items-center mb-4">
+            <div class="w-16 h-16 rounded-full bg-white flex items-center justify-center mr-4 p-2 border border-gray-200">
+                <i class="fab fa-coursera text-3xl text-[#0056d2]"></i>
+            </div>
+            <div>
+                <h3 class="font-semibold text-gray-800">Data Analysis and Visualization with Tableau</h3>
+                <p class="text-gray-600 text-sm">Coursera</p>
+            </div>
+        </div>
+        <p class="text-gray-700">Developed skills in data analysis and visualization using Tableau, including creating interactive dashboards and deriving insights from complex datasets.</p>
+        <div class="mt-3 text-sm text-primary flex items-center">
+            <span>View Certificate</span>
+            <i class="fas fa-external-link-alt ml-1 text-xs"></i>
+        </div>
+    </div>
+</a>
+            
+            <!-- Infosys Certification -->
+            <a href="https://infyspringboard.onwingspan.com/public-assets/infosysheadstart/cert/lex_auth_013326582703013888895_shared/1-993d751a-cc04-4f8b-8c67-794ef73da7a7.pdf" target="_blank" class="block hover:no-underline">
+                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300 h-full">
+                    <div class="flex items-center mb-4">
+                        <div class="w-16 h-16 rounded-full bg-white flex items-center justify-center mr-4 p-2 border border-gray-200">
+                            <i class="fas fa-robot text-3xl text-purple-600"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-gray-800">Applied Generative AI</h3>
+                            <p class="text-gray-600 text-sm">Infosys</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700">Completed generative AI course from Infosys including generative AI models, Prompt Engineering</p>
+                    <div class="mt-3 text-sm text-primary flex items-center">
+                        <span>View Certificate</span>
+                        <i class="fas fa-external-link-alt ml-1 text-xs"></i>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

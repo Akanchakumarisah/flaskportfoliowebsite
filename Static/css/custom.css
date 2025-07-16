@@ -1,0 +1,20 @@
+
+  body {
+    background: 
+      /* 3D Neuron Overlay */
+      url("{{ url_for('static', filename='images/neuron-bg.jpg') }}"),
+      /* Gradient Fallback */
+      linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    background-size: cover;
+    background-attachment: fixed;
+    background-blend-mode: overlay;
+  }
+  
+  /* Modern glass effect for content sections */
+  .content-section {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+  }

@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+
+{% block title %}Contact Me{% endblock %}
+
+{% block content %}
+<!-- Contact Section -->
+<section class="py-16 bg-white">
+    <div class="max-w-6xl mx-auto px-4">
+        <h1 class="text-3xl font-bold mb-12">Get In Touch</h1>
+        
+        <!-- Flash messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="mb-6 p-4 rounded-lg alert-{{ category }} 
+                        {% if category == 'success' %}bg-green-100 text-green-800
+                        {% elif category == 'warning' %}bg-yellow-100 text-yellow-800
+                        {% elif category == 'danger' %}bg-red-100 text-red-800
+                        {% else %}bg-blue-100 text-blue-800{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <!-- Contact Form -->
+            <div>
+                <div class="bg-light p-8 rounded-lg shadow-md">
+                    <h2 class="text-2xl font-semibold mb-6">Send Me a Message</h2>
+                    <form method="POST" action="{{ url_for('contact') }}">
+                        <div class="mb-4">
+                            <label for="name" class="block text-gray-700 mb-2">Name</label>
+                            <input type="text" id="name" name="name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="email" class="block text-gray-700 mb-2">Email</label>
+                            <input type="email" id="email" name="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="subject" class="block text-gray-700 mb-2">Subject</label>
+                            <input type="text" id="subject" name="subject" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" required>
+                        </div>
+                        <div class="mb-6">
+                            <label for="message" class="block text-gray-700 mb-2">Message</label>
+                            <textarea id="message" name="message" rows="5" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" required></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-primary text-white px-6 py-3 rounded-lg font-medium hover:bg-secondary transition duration-300">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Contact Info -->
+            <div>
+                <div class="bg-light p-8 rounded-lg shadow-md h-full">
+                    <h2 class="text-2xl font-semibold mb-6">Contact Information</h2>
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="bg-primary bg-opacity-10 text-primary p-3 rounded-full mr-4">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold">Location</h3>
+                                <p class="text-gray-600">Lovely Professional University,Jalandhar - Delhi G.T. Road, Punjab - 144411, India</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-primary bg-opacity-10 text-primary p-3 rounded-full mr-4">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold">Email</h3>
+                                <p class="text-gray-600">akanchasah039@gmail.com</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-primary bg-opacity-10 text-primary p-3 rounded-full mr-4">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold">Phone</h3>
+                                <p class="text-gray-600">+91 8360530902</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-primary bg-opacity-10 text-primary p-3 rounded-full mr-4">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold">Availability</h3>
+                                <p class="text-gray-600">Monday - Friday: 9am - 5pm</p>
+                                <p class="text-gray-600">Weekends: By appointment</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8">
+                        <h3 class="font-semibold mb-4">Follow Me</h3>
+                        <div class="flex space-x-4">
+                            <a href="https://github.com/Akanchakumarisah" target="_blank" class="bg-gray-200 text-gray-700 w-10 h-10 rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition duration-300">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="https://www.linkedin.com/in/akancha-kumari-sah/" target="_blank" class="bg-gray-200 text-gray-700 w-10 h-10 rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition duration-300">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Map Section -->
+<section class="py-16 bg-gray-50">
+    <div class="max-w-6xl mx-auto px-4">
+        <h2 class="text-2xl font-semibold mb-6">Find Me Here</h2>
+        <div class="bg-white p-4 rounded-lg shadow-md">
+            <div class="aspect-w-16 aspect-h-9">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3430.192311246889!2d75.70268361461814!3d31.255995581452134!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391a5ba701d89f9b%3A0xa8c5f1a5b51d6c95!2sLovely%20Professional%20University!5e0!3m2!1sen!2sin!4v1620000000000!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" class="rounded-lg"></iframe>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

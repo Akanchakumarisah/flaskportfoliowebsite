@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Work Experience{% endblock %}
+
+{% block content %}
+<!-- Internships Section -->
+<section class="py-16 bg-gray-50">
+    <div class="max-w-6xl mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-12">Internships</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300">
+                <div class="flex justify-between items-start mb-3">
+                    <h3 class="text-xl font-semibold">Python DataScience and MachineLearning Integrated</h3>
+                    <span class="bg-primary text-white px-2 py-1 rounded text-sm">Summer 2024</span>
+                </div>
+                <h4 class="text-lg text-secondary mb-3">E.d tech company CipherSchools</h4>
+                <ul class="list-disc list-inside text-gray-700 space-y-2">
+                    <li>Developed machine learning models using Python libraries (NumPy, Pandas, Scikit-learn)</li>
+                    <li>Implemented data preprocessing pipelines for structured and unstructured datasets</li>
+                    <li>Built predictive models and performed statistical analysis to derive business insights</li>
+                    <li>Optimized model performance through hyperparameter tuning and feature engineering</li>
+                    <li>Created data visualizations using Matplotlib/Seaborn to communicate findings</li>
+                    <li>Deployed ML models as REST APIs using Flask for production integration</li>
+                    <li>Applied natural language processing techniques to text classification problems</li>
+                    <li>Utilized ensemble methods and neural networks for complex prediction tasks</li>
+                </ul>
+            </div>
+            
+        </div>
+    </div>
+</section>
+{% endblock %}

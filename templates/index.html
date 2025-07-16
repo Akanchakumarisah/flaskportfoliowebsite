@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="bg-gradient-to-r from-primary to-secondary text-white py-20">
+    <div class="max-w-6xl mx-auto px-4">
+        <div class="flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-10 md:mb-0">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4">Hi, I'm Akancha Kumari Sah</h1>
+                <h2 class="text-2xl md:text-3xl font-semibold mb-6">Developer</h2>
+                <p class="text-lg mb-8">Full Stack Web Developer | Building modern, scalable, and user-focused web applications.</p>
+                <div class="flex space-x-4">
+                    <a href="/contact" class="bg-white text-primary px-6 py-3 rounded-lg font-medium hover:bg-gray-100 transition duration-300">Contact Me</a>
+                    <a href="static/images/Resume.pdf" download class="border-2 border-white text-white px-6 py-3 rounded-lg font-medium hover:bg-white hover:text-primary transition duration-300">Download CV</a>
+                </div>
+            </div>
+            <div class="md:w-1/2 flex justify-center">
+                <div class="w-64 h-70 md:w-64 md:h-80 rounded-full overflow-hidden border-4 border-white shadow-xl">
+                    <img src="{{ url_for('static', filename='images/profile.jpg') }}" alt="Profile Picture" class="w-full h-full object-cover">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Skills Preview -->
+<section class="py-16 bg-white">
+    <div class="max-w-6xl mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-12">Technical Skills</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div class="bg-light p-6 rounded-lg shadow-md text-center hover:shadow-lg transition duration-300">
+                <i class="fab fa-python text-4xl text-primary mb-4"></i>
+                <h3 class="text-xl font-semibold mb-2">Python</h3>
+                <p class="text-gray-600">Flask, Data Analysis</p>
+            </div>
+            <div class="bg-light p-6 rounded-lg shadow-md text-center hover:shadow-lg transition duration-300">
+                <i class="fab fa-js text-4xl text-primary mb-4"></i>
+                <h3 class="text-xl font-semibold mb-2">JavaScript</h3>
+                <p class="text-gray-600">React, Node.js</p>
+            </div>
+            <div class="bg-light p-6 rounded-lg shadow-md text-center hover:shadow-lg transition duration-300">
+                <i class="fas fa-database text-4xl text-primary mb-4"></i>
+                <h3 class="text-xl font-semibold mb-2">Databases</h3>
+                <p class="text-gray-600">SQL, MySql</p>
+            </div>
+            <div class="bg-light p-6 rounded-lg shadow-md text-center hover:shadow-lg transition duration-300">
+                <i class="fas fa-cloud text-4xl text-primary mb-4"></i>
+                <h3 class="text-xl font-semibold mb-2">Data Science</h3>
+                <p class="text-gray-600">Data Analysis, Data Visualization, Data Management</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Projects -->
+<section class="py-16 bg-gray-50">
+    <div class="max-w-6xl mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-12">Featured Projects</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for project in projects[:3] %}
+            <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition duration-300">
+                <div class="h-48 overflow-hidden">
+                    <img src="{{ url_for('static', filename='images/projects/' + project.image) }}" alt="{{ project.title }}" class="w-full h-full object-cover">
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold mb-2">{{ project.title }}</h3>
+                    <p class="text-gray-600 mb-4">{{ project.description[:100] }}...</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        {% for tech in project.technologies[:3] %}
+                        <span class="bg-primary bg-opacity-10 text-primary text-xs px-3 py-1 rounded-full">{{ tech }}</span>
+                        {% endfor %}
+                    </div>
+                    <div class="flex space-x-3">
+                        <a href="{{ project.github_url }}" target="_blank" class="text-primary hover:text-secondary transition duration-300">
+                            <i class="fab fa-github"></i> Code
+                        </a>
+                        {% if project.live_url %}
+                        <a href="{{ project.live_url }}" target="_blank" class="text-primary hover:text-secondary transition duration-300">
+                            <i class="fas fa-external-link-alt"></i> Live
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-10">
+            <a href="/projects" class="inline-block bg-primary text-white px-6 py-3 rounded-lg font-medium hover:bg-secondary transition duration-300">
+                View All Projects
+            </a>
+        </div>
+    </div>
+</section>
+
+<!--Testimonials-->
+<!-- <section class="py-16 bg-white"> -->
+    <!-- <div class="max-w-6xl mx-auto px-4"> -->
+        <!-- <h2 class="text-3xl font-bold text-center mb-12">What People Say</h2> -->
+        <!-- <div class="grid grid-cols-1 md:grid-cols-2 gap-8"> -->
+            <!-- <div class="bg-light p-8 rounded-lg shadow-md"> -->
+                <!-- <div class="flex items-center mb-4"> -->
+                    <!-- <div class="w-12 h-12 rounded-full overflow-hidden mr-4"> -->
+                        <!-- <img src="{{ url_for('static', filename='images/testimonials/person1.jpg') }}" alt="Person 1" class="w-full h-full object-cover"> -->
+                    <!-- </div> -->
+                    <!-- <div> -->
+                        <!-- <h4 class="font-semibold">Sarah Johnson</h4> -->
+                        <!-- <p class="text-gray-600 text-sm">Senior Developer at TechCorp</p> -->
+                    <!-- </div> -->
+                <!-- </div> -->
+                <!-- <p class="text-gray-700">"John demonstrated exceptional problem-solving skills during our project together. His ability to quickly understand complex systems and propose elegant solutions was impressive."</p> -->
+            <!-- </div> -->
+            <!-- <div class="bg-light p-8 rounded-lg shadow-md"> -->
+                <!-- <div class="flex items-center mb-4"> -->
+                    <!-- <div class="w-12 h-12 rounded-full overflow-hidden mr-4"> -->
+                        <!-- <img src="{{ url_for('static', filename='images/testimonials/person2.jpg') }}" alt="Person 2" class="w-full h-full object-cover"> -->
+                    <!-- </div> -->
+                    <!-- <div> -->
+                        <!-- <h4 class="font-semibold">Michael Chen</h4> -->
+                        <!-- <p class="text-gray-600 text-sm">CTO at StartupX</p> -->
+                    <!-- </div> -->
+                <!-- </div> -->
+                <!-- <p class="text-gray-700">"Working with John was a pleasure. He delivered high-quality code on time and was always willing to go the extra mile to ensure the project's success."</p> -->
+            <!-- </div> -->
+        <!-- </div> -->
+    <!-- </div> -->
+<!-- </section> -->
+ {% endblock %} 
